@@ -45,12 +45,12 @@
                 <ul class="navbar-nav">
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link">{{ user.username }}</a>
+                        <a class="nav-link">Bonjour, {{ user.username }}</a>
                     </li>
                     <li class="nav-item" >
-                        <form method='post' action="{% url 'logout' %}">
+                        <form class='d-flex me-3' method='post' action="{% url 'logout' %}">
                             {% csrf_token %}
-                            <button type="submit"> Déconnexion</button>
+                            <button class="btn btn-outline-danger" type="submit">Déconnexion</button>
                         </form>
                     </li>
                     {% else %}
@@ -69,7 +69,7 @@
 <div class="carte p-4 mb-4">
     <h1 class="card-title display-5 fw-bold text-primary">{{ livre.titre }}</h1>
     
-    <p class="card-text lead">Auteur : {{ livre.auteur }}</p>
+    <p class="card-text lead fw-bold">Auteur : {{ livre.auteur }}</p>
     <p class="card-text text-muted">ISBN : {{ livre.isbn }}</p>
     <p class="card-text text-muted">
         <small>Date de publication : {{ livre.date_publication }}</small>
