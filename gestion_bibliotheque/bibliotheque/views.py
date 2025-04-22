@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.db.models import Q
 from .models import Livre
 from .forms import SignUpForm, LivreForm
 
@@ -31,7 +32,11 @@ def livre_create(request):
     return render(request, 'bibliotheque/livre_form.html', {'form': form})
 
 def liste_livres(request):
-    livres = Livre.objects.all().order_by('-date_ajout')
+    query= request.GET.get('q')
+    if query:
+        livres = Livre.objects.filter(Q(titre__icontains=query)).order_by('-date_ajout')
+    else:
+     livres = Livre.objects.all().order_by('-date_ajout')
     return render(request,'bibliotheque/liste_livres.html',{'livres':livres})
 
 def Livre_detail(request,pk):
